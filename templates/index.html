@@ -1,36 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Valorant Bundles</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Valorant Bundles</h1>
-      <div class="card-container">
-        {% for item in items %}
-        <a
-          href="{{ url_for('item_detail', uuid=item.uuid) }}"
-          class="card-link"
-        >
-          <div class="card">
-            {% if item.image %}
-            <img
-              src="{{ item.image }}"
-              alt="{{ item.name }}"
-              class="card-img"
-            />
-            {% else %}
-            <div class="no-image">No Image Available</div>
-            {% endif %}
-          </div>
-        </a>
-        {% endfor %}
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Valorant Skins</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Valorant Skins</h1>
+    <div class="card-container">
+      {% for item in items %}
+      <a href="{{ url_for('item_detail', uuid=item.uuid) }}" class="card-link">
+        <div class="card">
+          {% if item.image %}
+          <img src="{{ item.image }}" alt="{{ item.name }}" class="card-img" />
+          {% else %}
+          <div class="no-image">No Image Available</div>
+          {% endif %}
+          <h3 class="card-title">{{ item.name }}</h3>
+        </div>
+      </a>
+      {% endfor %}
     </div>
-  </body>
+  </div>
+</body>
 </html>

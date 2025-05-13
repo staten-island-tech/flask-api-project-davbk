@@ -5,16 +5,16 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    response = requests.get("https://valorant-api.com/v1/bundles")
+    response = requests.get("https://valorant-api.com/v1/weapons/skins")
     data = response.json()
-    bundles = data.get('data', [])
+    skins = data.get('data', [])
+
     items = []
-    for bundle in bundles:
+    for skin in skins:
         items.append({
-            'uuid': bundle.get('uuid'),
-            'name': bundle.get('displayName'),
-            'description': bundle.get('description'),
-            'image': bundle.get('displayIcon')
+            'uuid': skin.get('uuid'),
+            'name': skin.get('displayName'),
+            'image': skin.get('displayIcon')
         })
 
     return render_template("index.html", items=items)
@@ -22,14 +22,17 @@ def index():
 
 @app.route("/item/<uuid>")
 def item_detail(uuid):
-    response = requests.get(f"https://valorant-api.com/v1/weapons/skins{uuid}")
+    response = requests.get("https://valorant-api.com/v1/weapons/skins")
     data = response.json()
+    skins = data.get('data', [])
 
-    item = data.get('data')
+    item = next((skin for skin in skins if skin.get('uuid') == uuid), None)
+
     if not item:
-        return "Item not found", 404
+        return "Skin not found", 404
 
-    return render_template("skin.html", item=item)
+    return render_template("skinbundles.html", item=item)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
