@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ item.title }} - Game Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>{{ item.title }}</h1>
+    <div class="game-details">
+      <div>
+        <img src="{{ item.thumbnail }}" alt="{{ item.title }}" class="game-image">
+      </div>
+
+      <div class="game-info">
+        <h2>Game Details</h2>
+        <p><strong>Genre:</strong> {{ item.genre }}</p>
+        <p><strong>Platform:</strong> {{ item.platform }}</p>
+        <p><strong>Publisher:</strong> {{ item.publisher }}</p>
+        <p><strong>Developer:</strong> {{ item.developer }}</p>
+        <p><strong>Release Date:</strong> {{ item.release_date }}</p>
+        <p><strong>Description:</strong> {{ item.short_description }}</p>
+        <p><strong>Game URL:</strong> <a href="{{ item.game_url }}" target="_blank">{{ item.game_url }}</a></p>
+        <p><strong>FreeToGame Profile:</strong> <a href="{{ item.freetogame_profile_url }}" target="_blank">{{ item.freetogame_profile_url }}</a></p>
+        
+        <a href="/" class="back-btn">Back to Game List</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

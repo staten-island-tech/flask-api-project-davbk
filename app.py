@@ -1,38 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify
 import requests
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    response = requests.get("https://valorant-api.com/v1/weapons/skins")
-    data = response.json()
-    skins = data.get('data', [])
+@app.route("/api/games", methods=["GET"])
+def get_games():
+    response = requests.get("https://www.freetogame.com/api/games?category=shooter")
+    
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch data"}), 500
 
-    items = []
-    for skin in skins:
-        items.append({
-            'uuid': skin.get('uuid'),
-            'name': skin.get('displayName'),
-            'image': skin.get('displayIcon')
+    data = response.json()
+    games = []
+
+    for game in data:
+        games.append({
+            "id": game.get("id"),
+            "title": game.get("title"),
+            "thumbnail": game.get("thumbnail"),
+            "short_description": game.get("short_description"),
+            "game_url": game.get("game_url"),
+            "genre": game.get("genre"),
+            "platform": game.get("platform"),
+            "publisher": game.get("publisher"),
+            "developer": game.get("developer"),
+            "release_date": game.get("release_date"),
+            "freetogame_profile_url": game.get("freetogame_profile_url")
         })
 
-    return render_template("index.html", items=items)
+    return jsonify(games)
 
+@app.route("/api/games/<int:game_id>", methods=["GET"])
+def get_game_by_id(game_id):
+    response = requests.get("https://www.freetogame.com/api/games?category=shooter")
 
-@app.route("/item/<uuid>")
-def item_detail(uuid):
-    response = requests.get("https://valorant-api.com/v1/weapons/skins")
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch data"}), 500
+
     data = response.json()
-    skins = data.get('data', [])
+    game = next((g for g in data if g.get("id") == game_id), None)
 
-    item = next((skin for skin in skins if skin.get('uuid') == uuid), None)
+    if not game:
+        return jsonify({"error": "Game not found"}), 404
 
-    if not item:
-        return "Skin not found", 404
+    return jsonify(game)
 
-    return render_template("skinbundles.html", item=item)
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
