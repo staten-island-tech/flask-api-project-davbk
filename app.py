@@ -22,7 +22,7 @@ def index():
 
 @app.route("/item/<uuid>")
 def item_detail(uuid):
-    response = requests.get(f"https://valorant-api.com/v1/bundles/{uuid}")
+    response = requests.get(f"https://valorant-api.com/v1/weapons/skins{uuid}")
     data = response.json()
 
     item = data.get('data')
