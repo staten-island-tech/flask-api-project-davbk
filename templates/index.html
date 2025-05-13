@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Minecraft Items</title>
+    <title>Valorant Bundles</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -10,25 +10,20 @@
   </head>
   <body>
     <div class="container">
-      <h1>Minecraft Items</h1>
+      <h1>Valorant Bundles</h1>
       <div class="card-container">
         {% for item in items %}
         <a
-          href="{{ url_for('item_detail', item_id=item.id) }}"
+          href="{{ url_for('item_detail', uuid=item.uuid) }}"
           class="card-link"
         >
           <div class="card">
-            <img src="https://minecraft-ids.grahamedgecombe.com/icons/{{ item.id }}" alt="{{ item.name }}" />
-            <div class="card-body">
-              <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">ID: {{ item.id }}</p>
-              <p class="card-text">Type: {{ item.type }}</p>
-              <p class="card-text">Max Stack: {{ item.stackSize }}</p>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
-    </div>
-  </body>
-</html>
+            {% if item.image %}
+            <img
+              src="{{ item.image }}"
+              alt="{{ item.name }}"
+              class="card-img"
+            />
+            {% else %}
+            <div class="no-image">No Image Available</div>
+            {% endif %}

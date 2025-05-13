@@ -5,26 +5,27 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")
+    response = requests.get("https://valorant-api.com/v1/bundles")
     data = response.json()
-
+    bundles = data.get('data', [])
     items = []
-    for item in data:
-        if 'id' in item and 'displayName' in item and 'type' in item:
-            items.append({
-                'id': item['id'],
-                'name': item['displayName'],
-                'type': item['type'],
-                'stackSize': item.get('stackSize', 64)
-            })
+    for bundle in bundles:
+        items.append({
+            'uuid': bundle.get('uuid'),
+            'name': bundle.get('displayName'),
+            'description': bundle.get('description'),
+            'image': bundle.get('displayIcon')
+        })
 
     return render_template("index.html", items=items)
 
-@app.route("/item/<int:item_id>")
-def item_detail(item_id):
-    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")
+
+@app.route("/item/<uuid>")
+def item_detail(uuid):
+    response = requests.get(f"https://valorant-api.com/v1/bundles/{uuid}")
     data = response.json()
-    item = next((i for i in data if i.get('id') == item_id), None)
+
+    item = data.get('data')
     if not item:
         return "Item not found", 404
 
