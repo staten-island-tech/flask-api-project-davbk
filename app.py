@@ -3,6 +3,14 @@ import requests
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return (
+        "<h1>Welcome to the FreeToGame API</h1>"
+        "<p>Use <a href='/api/games'>/api/games</a> to get a list of shooter games.</p>"
+        "<p>Use <code>/api/games/&lt;game_id&gt;</code> to get a specific game by its ID.</p>"
+    )
+
 @app.route("/api/games", methods=["GET"])
 def get_games():
     response = requests.get("https://www.freetogame.com/api/games?category=shooter")
