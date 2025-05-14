@@ -2,57 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Free Shooter Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Free Games</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
-    <h1>Free Shooter Games</h1>
-    <div class="card-container" id="card-container">
+    <h1>All Free Games</h1>
+    <div class="game-list">
+      {% for game in games %}
+        <div class="game-card">
+          <img src="{{ game.thumbnail }}" alt="{{ game.title }}" class="game-image">
+          <h3>{{ game.title }}</h3>
+          <p>{{ game.short_description }}</p>
+          <a href="{{ url_for('game_details', game_id=game.id) }}" class="game-details-link">View Details</a>
+        </div>
+      {% endfor %}
     </div>
   </div>
-
-  <script>
-    fetch('/api/games')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('card-container');
-        data.forEach(game => {
-          const card = document.createElement('a');
-          card.href = `/api/games/${game.id}`;
-          card.classList.add('card-link');
-
-          const cardContent = document.createElement('div');
-          cardContent.classList.add('card');
-
-          const img = document.createElement('img');
-          img.classList.add('card-img');
-          img.src = game.thumbnail || ''; 
-          img.alt = game.title;
-          
-          if (!game.thumbnail) {
-            const noImage = document.createElement('div');
-            noImage.classList.add('no-image');
-            noImage.innerText = 'No Image Available';
-            cardContent.appendChild(noImage);
-          } else {
-            cardContent.appendChild(img);
-          }
-
-          // Game title
-          const title = document.createElement('h3');
-          title.classList.add('card-title');
-          title.innerText = game.title;
-
-          cardContent.appendChild(title);
-          card.appendChild(cardContent);
-          container.appendChild(card);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching games:', error);
-        document.getElementById('card-container').innerText = 'Failed to load games.';
-      });
-  </script>
 </body>
 </html>
