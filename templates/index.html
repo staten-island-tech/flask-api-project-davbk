@@ -9,7 +9,13 @@
 <body>
   <div class="container">
     <h1>All Free Shooter Games</h1>
-    <div class="game-list">
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for games..." onkeyup="searchGames()">
+    </div>
+    
+    <div class="game-list" id="gameList">
       {% for game in games %}
         <div class="game-card">
           <img src="{{ game.thumbnail }}" alt="{{ game.title }}" class="game-image">
@@ -20,5 +26,22 @@
       {% endfor %}
     </div>
   </div>
+
+  <script>
+    function searchGames() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let gameList = document.getElementById('gameList');
+      let games = gameList.getElementsByClassName('game-card');
+
+      for (let i = 0; i < games.length; i++) {
+        let gameTitle = games[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
+        if (gameTitle.includes(input)) {
+          games[i].style.display = '';
+        } else {
+          games[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
 </body>
 </html>
