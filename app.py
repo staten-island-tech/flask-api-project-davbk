@@ -21,7 +21,15 @@ def get_games():
     if response.status_code != 200:
         return jsonify({"error": "Failed to fetch data"}), 500
 
-    return jsonify(response.json())
+@app.route("/games/<int:game_id>")
+def game_details(game_id):
+    response = requests.get(f"https://www.freetogame.com/api/game?id={game_id}")
+
+    if response.status_code != 200:
+        return "Failed to fetch game details", 500
+
+    game = response.json()
+    return render_template("item.html", game=game)
 
 if __name__ == "__main__":
     app.run(debug=True)
