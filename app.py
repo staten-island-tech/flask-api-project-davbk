@@ -29,7 +29,7 @@ def game_details(game_id):
         return "Failed to fetch game details", 500
 
     game = response.json()
-    return render_template("item.html", game=game)
+    return render_template("items.html", game=game)
 
 if __name__ == "__main__":
     app.run(debug=True)
