@@ -11,7 +11,7 @@
     <h1>{{ game.title }}</h1>
     <div class="game-details">
       <div>
-        <img src="{{ games.thumbnail }}" alt="{{ games.title }}" class="game-image">
+        <img src="{{ game.thumbnail }}" alt="{{ game.title }}" class="game-image">
       </div>
 
       <div class="game-info">
@@ -22,8 +22,8 @@
         <p><strong>Developer:</strong> {{ game.developer }}</p>
         <p><strong>Release Date:</strong> {{ game.release_date }}</p>
         <p><strong>Description:</strong> {{ game.short_description }}</p>
-        <p><strong>Game URL:</strong> <a href="{{ games.game_url }}" target="_blank">{{ game.game_url }}</a></p>
-        <p><strong>FreeToGame Profile:</strong> <a href="{{ games.freetogame_profile_url }}" target="_blank">{{ game.freetogame_profile_url }}</a></p>
+        <p><strong>Game URL:</strong> <a href="{{ game.game_url }}" target="_blank">{{ game.game_url }}</a></p>
+        <p><strong>FreeToGame Profile:</strong> <a href="{{ game.freetogame_profile_url }}" target="_blank">{{ game.freetogame_profile_url }}</a></p>
         
         <a href="/" class="back-btn">Back to Game List</a>
       </div>
