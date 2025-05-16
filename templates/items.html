@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ games.title }} - Game Details</title>
+  <title>{{ game.title }} - Game Details</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
-    <h1>{{ games.title }}</h1>
+    <h1>{{ game.title }}</h1>
     <div class="game-details">
       <div>
         <img src="{{ games.thumbnail }}" alt="{{ games.title }}" class="game-image">
@@ -16,14 +16,14 @@
 
       <div class="game-info">
         <h2>Game Details</h2>
-        <p><strong>Genre:</strong> {{ games.genre }}</p>
-        <p><strong>Platform:</strong> {{ games.platform }}</p>
-        <p><strong>Publisher:</strong> {{ games.publisher }}</p>
-        <p><strong>Developer:</strong> {{ games.developer }}</p>
-        <p><strong>Release Date:</strong> {{ games.release_date }}</p>
-        <p><strong>Description:</strong> {{ games.short_description }}</p>
-        <p><strong>Game URL:</strong> <a href="{{ games.game_url }}" target="_blank">{{ games.game_url }}</a></p>
-        <p><strong>FreeToGame Profile:</strong> <a href="{{ games.freetogame_profile_url }}" target="_blank">{{ games.freetogame_profile_url }}</a></p>
+        <p><strong>Genre:</strong> {{ game.genre }}</p>
+        <p><strong>Platform:</strong> {{ game.platform }}</p>
+        <p><strong>Publisher:</strong> {{ game.publisher }}</p>
+        <p><strong>Developer:</strong> {{ game.developer }}</p>
+        <p><strong>Release Date:</strong> {{ game.release_date }}</p>
+        <p><strong>Description:</strong> {{ game.short_description }}</p>
+        <p><strong>Game URL:</strong> <a href="{{ games.game_url }}" target="_blank">{{ game.game_url }}</a></p>
+        <p><strong>FreeToGame Profile:</strong> <a href="{{ games.freetogame_profile_url }}" target="_blank">{{ game.freetogame_profile_url }}</a></p>
         
         <a href="/" class="back-btn">Back to Game List</a>
       </div>
