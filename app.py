@@ -12,7 +12,7 @@ def show_games():
         return "Failed to fetch games", 500
 
     games = response.json()
-    return render_template("items.html", games=games)
+    return render_template("index.html", games=games)
 
 @app.route("/api/games", methods=["GET"])
 def get_games():
