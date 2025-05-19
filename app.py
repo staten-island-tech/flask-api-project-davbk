@@ -33,4 +33,4 @@ def game_details(game_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    print("hello world, your gay david")
+    print("hello world")
